@@ -1,0 +1,35 @@
+.carousel-container {
+  height: 60vw;
+  background-color: aquamarine;
+  width: 100vw;
+  position: absolute;
+}
+
+.carousel {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-image {
+  margin: 40px;
+  height: 15vw;
+  width: 25vw;
+  object-fit: cover;
+}
+
+.downloadButton {
+  border-width: 5px;
+  border-radius: 20px;
+  border-color: black;
+  height: 25px;
+  width: 150px;
+  text-align: center;
+  align-items: center;
+  border-style: solid;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
