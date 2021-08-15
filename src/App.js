@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import img1 from "./res/thinkMoto-slide-1.png";
 import img2 from "./res/thinkMoto-slide-2.png";
 import img3 from "./res/thinkMoto-slide-3.png";
+import SliderCard from "./SliderCard";
+import sliderContent from "./res/content/text";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -103,13 +105,22 @@ function App() {
         >
           <ul className="txtBox">
             <animated.p style={move5} className="slide-txt">
-              Hallo 1
+              <SliderCard
+                headline={sliderContent[2].headline}
+                description={sliderContent[2].description}
+              />
             </animated.p>
             <animated.p style={move6} className="slide-txt">
-              Hallo 2
+              <SliderCard
+                headline={sliderContent[0].headline}
+                description={sliderContent[0].description}
+              />
             </animated.p>
             <animated.p style={move4} className="slide-txt">
-              Hallo 3
+              <SliderCard
+                headline={sliderContent[1].headline}
+                description={sliderContent[1].description}
+              />
             </animated.p>
           </ul>
         </div>
