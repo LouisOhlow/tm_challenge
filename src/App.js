@@ -6,6 +6,8 @@ import img2 from "./res/thinkMoto-slide-2.png";
 import img3 from "./res/thinkMoto-slide-3.png";
 import SliderCard from "./SliderCard";
 import sliderContent from "./res/content/text";
+import arrowLeft from "./res/mouse-arrow-left.png";
+import arrowRight from "./res/mouse-arrow-right.png";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -27,12 +29,15 @@ function App() {
   const [counter2, setCounter2] = useState(2);
   const [counter3, setCounter3] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mouseHovers, setMouseHovers] = useState(1);
+  const [arrowPos, setArrowPos] = useState(0);
+  const [arrowImage, setArrowImage] = useState(arrowLeft);
 
   useInterval(() => {
     setCounter(moveCalculation(counter));
     setCounter3(moveCalculation(counter3));
     setCounter2(moveCalculation(counter2));
-  }, 1000000);
+  }, 5000);
 
   const formula1 = 60 * (2 - counter) - 60;
   const formula2 = 60 * ((2 - counter2) % 2) - 60;
@@ -62,8 +67,16 @@ function App() {
     to: [{ left: `${txtForm3}vw` }],
   });
 
-  const mouse = useSpring({
-    to: [{ left: mousePos.x, top: mousePos.y - 200 }],
+  const arrow = useSpring({
+    to: [
+      {
+        opacity: mouseHovers,
+        height: 90 * mouseHovers,
+        width: 90 * mouseHovers,
+        left: mousePos.x + arrowPos,
+        top: mousePos.y - 220,
+      },
+    ],
   });
 
   const moveCalculation = (pos) => (pos + 1) % 3;
@@ -73,19 +86,33 @@ function App() {
       className="App"
       onMouseMove={(e) => {
         setMousePos({ x: e.screenX, y: e.screenY });
-        console.log(mousePos);
       }}
     >
-      <animated.div style={mouse} className="mousePos"></animated.div>
+      <animated.img
+        style={arrow}
+        src={arrowImage}
+        className="mousePos"
+        onMouseEnter={() => {
+          setMouseHovers(1);
+        }}
+        onMouseOut={() => setMouseHovers(0)}
+      ></animated.img>
       <div className="slider-section">
-        <div
-          className="slider-imageBox"
-          onClick={() => {
-            setCounter(moveCalculation(counter + 1));
-            setCounter3(moveCalculation(counter3 + 1));
-            setCounter2(moveCalculation(counter2 + 1));
-          }}
-        >
+        <div className="slider-imageBox">
+          <div
+            className="homeSlider-prev"
+            onMouseEnter={() => {
+              setMouseHovers(1);
+              setArrowPos(-10);
+              setArrowImage(arrowLeft);
+            }}
+            onMouseOut={() => setMouseHovers(0)}
+            onClick={() => {
+              setCounter(moveCalculation(counter + 1));
+              setCounter3(moveCalculation(counter3 + 1));
+              setCounter2(moveCalculation(counter2 + 1));
+            }}
+          ></div>
           <ul className="imgBox">
             <animated.img
               id="img3"
@@ -107,14 +134,21 @@ function App() {
             ></animated.img>
           </ul>
         </div>
-        <div
-          className="slider-textBox"
-          onClick={() => {
-            setCounter(moveCalculation(counter));
-            setCounter3(moveCalculation(counter3));
-            setCounter2(moveCalculation(counter2));
-          }}
-        >
+        <div className="slider-textBox">
+          <div
+            className="homeSlider-next"
+            onMouseEnter={() => {
+              setMouseHovers(1);
+              setArrowPos(-70);
+              setArrowImage(arrowRight);
+            }}
+            onMouseOut={() => setMouseHovers(0)}
+            onClick={() => {
+              setCounter(moveCalculation(counter));
+              setCounter3(moveCalculation(counter3));
+              setCounter2(moveCalculation(counter2));
+            }}
+          ></div>
           <ul className="txtBox">
             <animated.p style={move5} className="slide-txt">
               <SliderCard

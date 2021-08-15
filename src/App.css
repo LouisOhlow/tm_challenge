@@ -24,8 +24,23 @@
   color: white;
 }
 
+.homeSlider-prev {
+  height: 100%;
+  width: 17vw;
+  z-index: 10;
+  position: absolute;
+}
+
+.homeSlider-next {
+  align-self: flex-end;
+  height: 100%;
+  width: 17vw;
+  z-index: 10;
+  right: 0;
+  position: absolute;
+}
+
 .mousePos {
-  background-color: yellow;
   height: 60px;
   width: 60px;
   position: absolute;
