@@ -24,6 +24,14 @@
   color: white;
 }
 
+.mousePos {
+  background-color: yellow;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  z-index: 20;
+}
+
 #img1 {
   z-index: 2;
 }

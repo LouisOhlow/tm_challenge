@@ -26,12 +26,13 @@ function App() {
   const [counter, setCounter] = useState(1);
   const [counter2, setCounter2] = useState(2);
   const [counter3, setCounter3] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useInterval(() => {
     setCounter(moveCalculation(counter));
     setCounter3(moveCalculation(counter3));
     setCounter2(moveCalculation(counter2));
-  }, 5000);
+  }, 1000000);
 
   const formula1 = 60 * (2 - counter) - 60;
   const formula2 = 60 * ((2 - counter2) % 2) - 60;
@@ -61,10 +62,21 @@ function App() {
     to: [{ left: `${txtForm3}vw` }],
   });
 
+  const mouse = useSpring({
+    to: [{ left: mousePos.x, top: mousePos.y - 200 }],
+  });
+
   const moveCalculation = (pos) => (pos + 1) % 3;
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      onMouseMove={(e) => {
+        setMousePos({ x: e.screenX, y: e.screenY });
+        console.log(mousePos);
+      }}
+    >
+      <animated.div style={mouse} className="mousePos"></animated.div>
       <div className="slider-section">
         <div
           className="slider-imageBox"
