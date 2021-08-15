@@ -1,10 +1,32 @@
 * {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .App {
   text-align: center;
+}
+
+.slide-elem-1 {
+  background-color: rgba(255, 0, 0, 1);
+  width: 60vw;
+  height: 46vw;
+  position: absolute;
+}
+
+.slide-elem-2 {
+  background-color: rgba(60, 255, 0, 1);
+  width: 60vw;
+  height: 46vw;
+  position: absolute;
+}
+
+.slide-elem-3 {
+  background-color: rgba(60, 255, 255, 1);
+  width: 60vw;
+  height: 46vw;
+  position: absolute;
 }
 
 .slider-section {
@@ -14,13 +36,15 @@
 .slider-textBox {
   width: 40vw;
   height: 46vw;
-  background-color: red;
+  background-color: black;
 }
 
 .slider-imageBox {
   width: 60vw;
   height: 46vw;
-  background-color: green;
+  background-color: coral;
+  overflow: hidden;
+  position: relative;
 }
 
 .App-logo {
@@ -30,14 +54,20 @@
 
 @media only screen and (max-width: 1025px) {
   .slider-imageBox,
-  .slider-textBox {
+  .slider-textBox,
+  .slide-elem-1,
+  .slide-elem-2,
+  .slide-elem-3 {
     height: 60vw;
   }
 }
 
 @media only screen and (max-width: 1150px) {
   .slider-imageBox,
-  .slider-textBox {
+  .slider-textBox,
+  .slide-elem-1,
+  .slide-elem-2,
+  .slide-elem-3 {
     height: 50vw;
   }
 }
