@@ -25,14 +25,14 @@ class Carousel extends React.Component {
     const context = this.canvasA.getContext("2d");
     const imgData = context.getImageData(0, 0, 1024, 1024);
     const data = imgData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      const red = data[i];
-      const green = data[i + 1];
-      const blue = data[i + 2];
-      const alpha = data[i + 3];
+    // for (let i = 0; i < data.length; i += 4) {
+    //   const red = data[i];
+    //   const green = data[i + 1];
+    //   const blue = data[i + 2];
+    //   const alpha = data[i + 3];
 
-      data[i] = 50;
-    }
+    //   data[i] = 50;
+    // }
     context.putImageData(imgData, 0, 0);
 
     // var canvas = document.getElementById("canvas");
@@ -74,12 +74,12 @@ class Carousel extends React.Component {
     return (
       <div className="carousel-container">
         <div className="carousel">
+          <ImageCard imageUrl={imageFile} filterType="noRed" />
+          <ImageCard imageUrl={imageFile} filterType="noRed" />
+          <ImageCard imageUrl={imageFile} filterType="noGreen" />
           <ImageCard imageUrl={imageFile} filterType="blackWhite" />
-          <ImageCard imageUrl={imageFile} filterType="none" />
-          <ImageCard imageUrl={imageFile} filterType="sepia" />
-          <ImageCard imageUrl={imageFile} filterType="blur" />
           <canvas
-            id="canvas"
+            id="canvass"
             ref={(canvasA) => (this.canvasA = canvasA)}
             width={1024}
             height={1024}

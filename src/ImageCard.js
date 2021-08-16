@@ -2,47 +2,26 @@ import "./Carousel.css";
 import React from "react";
 import placeHolder from "./res/thinkMoto-slide-1.png";
 import { getFilter } from "./imageFilter";
+import { thisTimeValue } from "es-abstract";
 
 class ImageCard extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       imageUrl: placeHolder,
-      canvasHasLoaded: false,
+      drawnImage: false,
     };
   }
-  async componentDidMount() {
-    this.imageToCanvas(this.props.imageUrl);
-    this.setState({
-      canvasHasLoaded: true,
-    });
+  componentDidMount() {
+    this.drawImageToCanvas(placeHolder);
   }
 
-  componentDidUpdate() {
-    this.imageToCanvas(this.props.imageUrl);
-    this.applyFilter();
-  }
+  //   componentDidUpdate() {
+  //     this.drawImageToCanvas(placeHolder);
+  //   }
 
-  applyFilter = () => {
-    const context = this.canvasRef.getContext("2d");
-    const { filterType } = this.props;
-    console.log(filterType);
-
-    switch (filterType) {
-      case "blur":
-        context.filter = "blur(4px)";
-        break;
-      case "sepia":
-        context.filter = "sepia(1)";
-        break;
-      case "blackWhite":
-        context.filter = "grayscale(100%)";
-        break;
-      default:
-    }
-  };
-
-  imageToCanvas = async (imageUrl) => {
+  drawImageToCanvas = (imageUrl) => {
     const context = this.canvasRef.getContext("2d");
     const image = new Image();
     image.src = imageUrl;
@@ -54,30 +33,46 @@ class ImageCard extends React.Component {
         this.canvasRef.width,
         this.canvasRef.height
       );
+      this.applyFilter();
     };
-    context.filter = "blue(4px)";
+  };
+
+  applyFilter = () => {
+    const { filterType } = this.props;
+    const context = this.canvasRef.getContext("2d");
+    const imgData = context.getImageData(0, 0, 256, 256);
+    const data = imgData.data;
+    const pixelArray = getFilter(data, filterType);
+    for (let i = 0; i < data.length; i += 1) {
+      data[i] = pixelArray[i];
+    }
+    context.putImageData(imgData, 0, 0);
+    var canvas = this.canvasRef;
+    this.setState({ imageUrl: canvas.toDataURL(`${filterType}Image/png`) });
+  };
+
+  getImageFromCanvas = () => {
+    const { filterType } = this.props;
+    var canvas = document.getElementById("canvas");
+    if (canvas) {
+      return canvas.toDataURL(`${filterType}Image/png`);
+    } else return null;
   };
 
   render() {
-    const { imageUrl } = this.state;
+    const { imageUrl, drawnImage } = this.state;
+    const canvasUrl = imageUrl;
 
     return (
       <div className="imageCard-container">
         <div className="carousel">
+          <img className="carousel-image" src={canvasUrl} alt="uploadedImage" />
           <canvas
             className="canvas"
             ref={(canvasRef) => (this.canvasRef = canvasRef)}
             width={256}
             height={256}
           />
-        </div>
-        <div
-          className="downloadButton"
-          onClick={() => {
-            this.applyFilter();
-          }}
-        >
-          <h3>LOL</h3>
         </div>
       </div>
     );
