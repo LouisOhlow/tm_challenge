@@ -1,6 +1,7 @@
 import "./Carousel.css";
 import React from "react";
 import placeHolder from "./res/thinkMoto-slide-1.png";
+import ImageCard from "./ImageCard";
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -33,6 +34,12 @@ class Carousel extends React.Component {
       data[i] = 50;
     }
     context.putImageData(imgData, 0, 0);
+
+    // var canvas = document.getElementById("canvas");
+    // var url = canvas.toDataURL("image/png");
+    // const image = new Image();
+    // image.src = url;
+    // this.setState({ imageFile: url });
   };
 
   handleUpload = (event) => {
@@ -53,6 +60,9 @@ class Carousel extends React.Component {
   download = () => {
     var canvas = document.getElementById("canvas");
     var url = canvas.toDataURL("image/png");
+    const image = new Image();
+    image.src = url;
+    this.setState({ imageFile: image });
     var link = document.createElement("a");
     link.download = "filename.png";
     link.href = url;
@@ -64,8 +74,10 @@ class Carousel extends React.Component {
     return (
       <div className="carousel-container">
         <div className="carousel">
-          <img className="carousel-image" src={imageFile} alt="uploadedImage" />
-          <img className="carousel-image" src={imageFile} alt="uploadedImage" />
+          <ImageCard imageUrl={imageFile} filterType="blackWhite" />
+          <ImageCard imageUrl={imageFile} filterType="none" />
+          <ImageCard imageUrl={imageFile} filterType="sepia" />
+          <ImageCard imageUrl={imageFile} filterType="blur" />
           <canvas
             id="canvas"
             ref={(canvasA) => (this.canvasA = canvasA)}

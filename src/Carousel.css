@@ -1,6 +1,5 @@
 .carousel-container {
   height: 60vw;
-  background-color: aquamarine;
   width: 100vw;
   position: absolute;
 }
@@ -44,4 +43,19 @@
 .buttons {
   display: flex;
   justify-content: space-around;
+}
+
+#canvas {
+  height: 0;
+  width: 0;
+}
+
+.canvas {
+  height: 500;
+  width: 500;
+  background-color: green;
+}
+
+.imageCard-container {
+  background-color: blue;
 }
