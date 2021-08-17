@@ -5,10 +5,18 @@
 .downloadButton {
   position: relative;
   display: flex;
-  width: 100%;
   justify-content: center;
   bottom: 23vw;
-  z-index: 3;
+  z-index: 5;
+}
+
+.uploadButton {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  bottom: 15vw;
+  left: 2vw;
+  z-index: 6;
 }
 
 .arrowButton {
@@ -24,7 +32,6 @@
 
 .buttons {
   display: flex;
-  width: 100vw;
   background-color: green;
   position: absolute;
 }
