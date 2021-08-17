@@ -17,6 +17,7 @@ class Carousel extends React.Component {
     super(props);
     this.state = {
       imageFile: placeHolder,
+      activeIndex: 0,
     };
   }
 
@@ -28,7 +29,9 @@ class Carousel extends React.Component {
 
   download = () => {
     const { images } = this.props;
-    const url = images[1];
+    const { activeIndex } = this.state;
+    console.log(activeIndex);
+    const url = images[activeIndex];
     var link = document.createElement("a");
     link.download = "filename.png";
     link.href = url;
@@ -39,7 +42,7 @@ class Carousel extends React.Component {
     const { imageFile } = this.state;
     return (
       <div className="carousel-container">
-        <div className="background-design"/>
+        <div className="background-design" />
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
@@ -55,6 +58,9 @@ class Carousel extends React.Component {
           loop
           pagination={true}
           className="swiper-container"
+          onSnapIndexChange={(swiper) => {
+            this.setState({ activeIndex: swiper.activeIndex % 4});
+          }}
         >
           <SwiperSlide id="slider1" className="swiper-slide">
             <ImageCard
@@ -68,7 +74,7 @@ class Carousel extends React.Component {
             <ImageCard
               className="swiper-slide-image"
               imageUrl={imageFile}
-              filterType="noRed"
+              filterType="negative"
               index={1}
             />
           </SwiperSlide>
