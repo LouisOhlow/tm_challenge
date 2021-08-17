@@ -2,15 +2,16 @@
   height: 60vw;
   width: 100vw;
   position: absolute;
+  padding: 5%;
 }
 
 .carousel {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .carousel-image {
-  margin: 40px;
+  margin: 5px;
   height: 15vw;
   width: 25vw;
   object-fit: cover;
@@ -51,8 +52,8 @@
 }
 
 .canvas {
-  height: 500;
-  width: 500;
+  height: 0;
+  width: 0;
   background-color: green;
 }
 
@@ -60,8 +61,4 @@
   height: 500;
   width: 500;
   background-color: green;
-}
-
-.imageCard-container {
-  background-color: blue;
 }

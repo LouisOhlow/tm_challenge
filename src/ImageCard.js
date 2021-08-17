@@ -2,6 +2,8 @@ import "./Carousel.css";
 import React from "react";
 import placeHolder from "./res/thinkMoto-slide-1.png";
 import { getFilter } from "./imageFilter";
+import { connect } from "react-redux";
+import { setImage } from "./actions/images";
 
 class ImageCard extends React.Component {
   constructor(props) {
@@ -51,15 +53,16 @@ class ImageCard extends React.Component {
     const canvas = this.canvasRef;
 
     const context = canvas.getContext("2d");
-    const imgData = context.getImageData(0, 0, 256, 256);
+    const imgData = context.getImageData(0, 0, 1024, 1024);
     const data = imgData.data;
     const pixelArray = getFilter(data, filterType);
     for (let i = 0; i < data.length; i += 1) {
       data[i] = pixelArray[i];
     }
     context.putImageData(imgData, 0, 0);
-
-    return canvas.toDataURL(`Image/png`);
+    const url = canvas.toDataURL(`${filterType}Image/png`);
+    this.props.setImage(url, this.props.index);
+    return url;
   };
 
   render() {
@@ -81,4 +84,8 @@ class ImageCard extends React.Component {
   }
 }
 
-export default ImageCard;
+const mapDispatchToProps = (dispatch) => ({
+  setImage: (image, index) => dispatch(setImage(image, index)),
+});
+
+export default connect(null, mapDispatchToProps)(ImageCard);

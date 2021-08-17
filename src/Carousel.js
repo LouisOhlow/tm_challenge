@@ -2,6 +2,7 @@ import "./Carousel.css";
 import React from "react";
 import placeHolder from "./res/thinkMoto-slide-1.png";
 import ImageCard from "./ImageCard";
+import { connect } from "react-redux";
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -11,58 +12,15 @@ class Carousel extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const context = this.canvasA.getContext("2d");
-
-    const image = new Image();
-    image.src = placeHolder;
-    image.onload = () => {
-      context.drawImage(image, 0, 0, this.canvasA.width, this.canvasA.height);
-    };
-  }
-
-  manipulateImage = () => {
-    const context = this.canvasA.getContext("2d");
-    const imgData = context.getImageData(0, 0, 1024, 1024);
-    const data = imgData.data;
-    // for (let i = 0; i < data.length; i += 4) {
-    //   const red = data[i];
-    //   const green = data[i + 1];
-    //   const blue = data[i + 2];
-    //   const alpha = data[i + 3];
-
-    //   data[i] = 50;
-    // }
-    context.putImageData(imgData, 0, 0);
-
-    // var canvas = document.getElementById("canvas");
-    // var url = canvas.toDataURL("image/png");
-    // const image = new Image();
-    // image.src = url;
-    // this.setState({ imageFile: url });
-  };
-
   handleUpload = (event) => {
     this.setState({
       imageFile: URL.createObjectURL(event.target.files[0]),
     });
-
-    const context = this.canvasA.getContext("2d");
-
-    const image = new Image();
-    image.src = URL.createObjectURL(event.target.files[0]);
-    image.onload = () => {
-      context.drawImage(image, 0, 0, this.canvasA.width, this.canvasA.height);
-    };
-    console.log(URL.createObjectURL(event.target.files[0]));
   };
 
   download = () => {
-    var canvas = document.getElementById("canvas");
-    var url = canvas.toDataURL("image/png");
-    const image = new Image();
-    image.src = url;
-    this.setState({ imageFile: image });
+    const { images } = this.props;
+    const url = images[1];
     var link = document.createElement("a");
     link.download = "filename.png";
     link.href = url;
@@ -74,10 +32,10 @@ class Carousel extends React.Component {
     return (
       <div className="carousel-container">
         <div className="carousel">
-          <ImageCard imageUrl={imageFile} filterType="noRed" />
-          <ImageCard imageUrl={imageFile} filterType="noRed" />
-          <ImageCard imageUrl={imageFile} filterType="noGreen" />
-          <ImageCard imageUrl={imageFile} filterType="blackWhite" />
+          <ImageCard imageUrl={imageFile} filterType="none" index={0} />
+          <ImageCard imageUrl={imageFile} filterType="noRed" index={1} />
+          <ImageCard imageUrl={imageFile} filterType="noGreen" index={2} />
+          <ImageCard imageUrl={imageFile} filterType="blackWhite" index={3} />
           <canvas
             id="canvass"
             ref={(canvasA) => (this.canvasA = canvasA)}
@@ -88,19 +46,6 @@ class Carousel extends React.Component {
         <div className="buttons">
           <div className="uploadButton">
             <input type="file" onChange={this.handleUpload} />
-          </div>
-          <div className="downloadButton">
-            <a href={imageFile} download>
-              DOWNLOAD
-            </a>
-          </div>
-          <div
-            className="downloadButton"
-            onClick={() => {
-              this.manipulateImage();
-            }}
-          >
-            <h3>EDIT IMAGE</h3>
           </div>
           <div
             className="downloadButton"
@@ -116,4 +61,8 @@ class Carousel extends React.Component {
   }
 }
 
-export default Carousel;
+const mapStateToProps = (state) => ({
+  images: state.imageRed.images,
+});
+
+export default connect(mapStateToProps)(Carousel);
