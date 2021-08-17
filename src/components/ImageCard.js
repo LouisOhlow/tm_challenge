@@ -2,7 +2,7 @@ import "./Carousel.css";
 import React from "react";
 import { getFilter } from "./imageFilter";
 import { connect } from "react-redux";
-import { setImage } from "./actions/images";
+import { setImage } from "../actions/images";
 
 class ImageCard extends React.Component {
   constructor(props) {

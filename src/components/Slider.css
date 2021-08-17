@@ -80,41 +80,38 @@
 .slider-imageBox {
   width: 60vw;
   height: 46vw;
-  background-color: coral;
   overflow: hidden;
   position: relative;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media only screen and (max-width: 1025px) {
-  .slider-imageBox,
-  .slider-textBox,
-  .slide-elem-1,
-  .slide-elem-2,
-  .slide-elem-3 {
-    height: 60vw;
-  }
 }
 
 @media only screen and (max-width: 1150px) {
   .slider-imageBox,
   .slider-textBox,
-  .slide-elem-1,
-  .slide-elem-2,
-  .slide-elem-3 {
+  .slide-img {
     height: 50vw;
   }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 1025px) {
+  .slider-imageBox,
+  .slider-textBox,
+  .slide-img {
+    height: 60vw;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media only screen and (max-width: 660px) {
+  .slider-imageBox,
+  .slide-img {
+    height: 76vw;
+    width: 100vw;
+  }
+  .slider-textBox {
+    height: 38rem;
+    width: 100vw;
+  }
+  .slider-section {
+    flex-direction: column;
+    width: 100vw;
   }
 }

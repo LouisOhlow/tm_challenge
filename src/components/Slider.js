@@ -1,13 +1,13 @@
 import "./Slider.css";
 import { useSpring, animated } from "react-spring";
 import { useState, useEffect, useRef } from "react";
-import img1 from "./res/thinkMoto-slide-1.png";
-import img2 from "./res/thinkMoto-slide-2.png";
-import img3 from "./res/thinkMoto-slide-3.png";
+import img1 from "../res/images/thinkMoto-slide-1.png";
+import img2 from "../res/images/thinkMoto-slide-2.png";
+import img3 from "../res/images/thinkMoto-slide-3.png";
 import SliderCard from "./SliderCard";
-import sliderContent from "./res/content/text";
-import arrowLeft from "./res/mouse-arrow-left.png";
-import arrowRight from "./res/mouse-arrow-right.png";
+import sliderContent from "../res/content/text";
+import arrowLeft from "../res/images/mouse-arrow-left.png";
+import arrowRight from "../res/images/mouse-arrow-right.png";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -37,7 +37,8 @@ function Slider() {
     setCounter(moveCalculation(counter));
     setCounter3(moveCalculation(counter3));
     setCounter2(moveCalculation(counter2));
-  }, 5000);
+  }, 800000000);
+  const screen = Screen;
 
   const formula1 = 60 * (2 - counter) - 60;
   const formula2 = 60 * ((2 - counter2) % 2) - 60;
@@ -96,7 +97,7 @@ function Slider() {
           setMouseHovers(1);
         }}
         onMouseOut={() => setMouseHovers(0)}
-      ></animated.img>
+      />
       <div className="slider-section">
         <div className="slider-imageBox">
           <div
@@ -112,26 +113,26 @@ function Slider() {
               setCounter3(moveCalculation(counter3 + 1));
               setCounter2(moveCalculation(counter2 + 1));
             }}
-          ></div>
+          />
           <ul className="imgBox">
             <animated.img
               id="img3"
               src={img3}
               style={move2}
               className="slide-img"
-            ></animated.img>
+            />
             <animated.img
               id="img1"
               src={img1}
               style={move3}
               className="slide-img"
-            ></animated.img>
+            />
             <animated.img
               id="img2"
               src={img2}
               style={move}
               className="slide-img"
-            ></animated.img>
+            />
           </ul>
         </div>
         <div className="slider-textBox">
@@ -148,7 +149,7 @@ function Slider() {
               setCounter3(moveCalculation(counter3));
               setCounter2(moveCalculation(counter2));
             }}
-          ></div>
+          />
           <ul className="txtBox">
             <animated.p style={move5} className="slide-txt">
               <SliderCard

@@ -1,13 +1,12 @@
 import "./Carousel.css";
 import React, { useState } from "react";
-import placeHolder from "./res/placeholder.png";
-import uploadButton from "./res/upload-button.png";
-import downloadButton from "./res/download-button.png";
+import placeHolder from "../res/images/placeholder.png";
+import uploadButton from "../res/images/upload-button.png";
+import downloadButton from "../res/images/download-button.png";
 import ImageCard from "./ImageCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Virtual, Pagination, EffectCoverflow } from "swiper";
 import { connect } from "react-redux";
-import { useSpring, animated } from "react-spring";
 
 import "swiper/swiper.min.css";
 import "swiper/components/effect-coverflow/effect-coverflow.min.css";
@@ -89,10 +88,15 @@ function Carousel({ images }) {
         <label for="file-input">
           <img src={uploadButton} alt="upload" class="arrowButton" />
         </label>
-        <input id="file-input" type="file" onChange={handleUpload} />
+        <input
+          id="file-input"
+          type="file"
+          onChange={handleUpload}
+          accept="image/*"
+        />
       </div>
       <div className="downloadButton">
-        <animated.img
+        <img
           src={downloadButton}
           alt="downloadbutton"
           class="arrowButton"

@@ -38,5 +38,5 @@
 @font-face {
   font-family: "Brandon Grotesque Web Medium";
   src: local("Brandon Grotesque Web Medium"),
-    url(./res/fonts/Brandon-Grotesque-Web-Medium.woff) format("woff");
+    url(../res/fonts/Brandon-Grotesque-Web-Medium.woff) format("woff");
 }
