@@ -1,36 +1,32 @@
+#file-input {
+  display: none;
+}
+
 .downloadButton {
-  border-width: 5px;
-  border-radius: 20px;
-  border-color: black;
-  height: 25px;
-  width: 150px;
-  text-align: center;
-  align-items: center;
-  border-style: solid;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.uploadButton {
-  border-width: 5px;
-  border-radius: 20px;
-  border-color: black;
-  height: 25px;
-  width: 200px;
-  text-align: center;
-  align-items: center;
-  border-style: solid;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.buttons {
+  position: relative;
   display: flex;
-  justify-content: space-around;
-  margin: 30px;
+  width: 100%;
+  justify-content: center;
+  bottom: 23vw;
+  z-index: 3;
+}
+
+.arrowButton {
+  object-fit: cover;
+  height: 8vw;
+  width: 8vw;
 }
 
 .canvas {
   height: 0;
   width: 0;
+}
+
+.buttons {
+  display: flex;
+  width: 100vw;
+  background-color: green;
+  position: absolute;
 }
 
 .swiper-slide img {

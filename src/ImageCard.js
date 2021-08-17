@@ -1,6 +1,5 @@
 import "./Carousel.css";
 import React from "react";
-import placeHolder from "./res/thinkMoto-slide-3.png";
 import { getFilter } from "./imageFilter";
 import { connect } from "react-redux";
 import { setImage } from "./actions/images";
@@ -80,8 +79,6 @@ class ImageCard extends React.Component {
 
   render() {
     const { imageUrl, height, width } = this.state;
-    console.log(width);
-    console.log(height);
 
     return (
       <div className="imageCard-container">

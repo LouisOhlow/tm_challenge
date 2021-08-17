@@ -1,6 +1,8 @@
 import "./Carousel.css";
 import React from "react";
-import placeHolder from "./res/thinkMoto-slide-3.png";
+import placeHolder from "./res/placeholder.png";
+import uploadButton from "./res/upload-button.png";
+import downloadButton from "./res/download-button.png";
 import ImageCard from "./ImageCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Virtual, Pagination, EffectCoverflow } from "swiper";
@@ -30,7 +32,6 @@ class Carousel extends React.Component {
   download = () => {
     const { images } = this.props;
     const { activeIndex } = this.state;
-    console.log(activeIndex);
     const url = images[activeIndex];
     var link = document.createElement("a");
     link.download = "filename.png";
@@ -56,10 +57,9 @@ class Carousel extends React.Component {
             slideShadows: false,
           }}
           loop
-          pagination={true}
           className="swiper-container"
           onSnapIndexChange={(swiper) => {
-            this.setState({ activeIndex: swiper.activeIndex % 4});
+            this.setState({ activeIndex: swiper.activeIndex % 4 });
           }}
         >
           <SwiperSlide id="slider1" className="swiper-slide">
@@ -95,18 +95,19 @@ class Carousel extends React.Component {
             />
           </SwiperSlide>
         </Swiper>
-        <div className="buttons">
-          <div className="uploadButton">
-            <input type="file" onChange={this.handleUpload} />
-          </div>
-          <div
-            className="downloadButton"
-            onClick={() => {
-              this.download();
-            }}
-          >
-            <h3>DOWNLOAD!</h3>
-          </div>
+        <div class="uploadButton">
+          <label for="file-input">
+            <img src={uploadButton} alt="upload" class="arrowButton" />
+          </label>
+          <input id="file-input" type="file" onChange={this.handleUpload} />
+        </div>
+        <div
+          className="downloadButton"
+          onClick={() => {
+            this.download();
+          }}
+        >
+          <img src={downloadButton} alt="downloadbutton" class="arrowButton" />
         </div>
       </div>
     );
