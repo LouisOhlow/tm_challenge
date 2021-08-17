@@ -2,44 +2,55 @@ import "./Carousel.css";
 import React from "react";
 import placeHolder from "./res/thinkMoto-slide-1.png";
 import { getFilter } from "./imageFilter";
-import { thisTimeValue } from "es-abstract";
 
 class ImageCard extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      imageUrl: placeHolder,
-      drawnImage: false,
+      imageUrl: null,
     };
   }
-  componentDidMount() {
-    this.drawImageToCanvas(placeHolder);
+
+  async componentDidMount() {
+    await this.drawImageToCanvas(placeHolder);
+    const url = this.applyFilter();
+    this.setState({
+      imageUrl: url,
+    });
   }
 
-  //   componentDidUpdate() {
-  //     this.drawImageToCanvas(placeHolder);
-  //   }
+  async componentDidUpdate(previousProps, previousState) {
+    await this.drawImageToCanvas(this.props.imageUrl);
+    const url = this.applyFilter();
 
-  drawImageToCanvas = (imageUrl) => {
-    const context = this.canvasRef.getContext("2d");
-    const image = new Image();
-    image.src = imageUrl;
-    image.onload = () => {
-      context.drawImage(
-        image,
-        0,
-        0,
-        this.canvasRef.width,
-        this.canvasRef.height
-      );
-      this.applyFilter();
-    };
+    if (previousProps.imageUrl !== this.props.imageUrl) {
+      this.setState({ imageUrl: url });
+    }
+  }
+
+  drawImageToCanvas = async (imageUrl) => {
+    const canvas = this.canvasRef;
+    const context = canvas.getContext("2d");
+    const image = await this.imageProcess(imageUrl);
+
+    context.drawImage(image, 0, 0, this.canvasRef.width, this.canvasRef.height);
+  };
+
+  imageProcess = (imageUrl) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = imageUrl;
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+    });
   };
 
   applyFilter = () => {
     const { filterType } = this.props;
-    const context = this.canvasRef.getContext("2d");
+    const canvas = this.canvasRef;
+
+    const context = canvas.getContext("2d");
     const imgData = context.getImageData(0, 0, 256, 256);
     const data = imgData.data;
     const pixelArray = getFilter(data, filterType);
@@ -47,26 +58,17 @@ class ImageCard extends React.Component {
       data[i] = pixelArray[i];
     }
     context.putImageData(imgData, 0, 0);
-    var canvas = this.canvasRef;
-    this.setState({ imageUrl: canvas.toDataURL(`${filterType}Image/png`) });
-  };
 
-  getImageFromCanvas = () => {
-    const { filterType } = this.props;
-    var canvas = document.getElementById("canvas");
-    if (canvas) {
-      return canvas.toDataURL(`${filterType}Image/png`);
-    } else return null;
+    return canvas.toDataURL(`Image/png`);
   };
 
   render() {
-    const { imageUrl, drawnImage } = this.state;
-    const canvasUrl = imageUrl;
+    const imageUrl = this.state.imageUrl;
 
     return (
       <div className="imageCard-container">
         <div className="carousel">
-          <img className="carousel-image" src={canvasUrl} alt="uploadedImage" />
+          <img className="carousel-image" src={imageUrl} alt="uploadedImage" />
           <canvas
             className="canvas"
             ref={(canvasRef) => (this.canvasRef = canvasRef)}
