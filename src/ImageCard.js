@@ -1,6 +1,6 @@
 import "./Carousel.css";
 import React from "react";
-import placeHolder from "./res/thinkMoto-slide-1.png";
+import placeHolder from "./res/thinkMoto-slide-3.png";
 import { getFilter } from "./imageFilter";
 import { connect } from "react-redux";
 import { setImage } from "./actions/images";
@@ -11,32 +11,45 @@ class ImageCard extends React.Component {
 
     this.state = {
       imageUrl: null,
+      height: 800,
+      width: 800,
     };
   }
 
   async componentDidMount() {
-    await this.drawImageToCanvas(placeHolder);
-    const url = this.applyFilter();
+    const image = await this.imageProcess(this.props.imageUrl);
+    await this.drawImageToCanvas(image);
+    const url = this.applyFilter(image.height, image.width);
     this.setState({
+      height: image.height,
+      width: image.widtht,
       imageUrl: url,
     });
   }
 
   async componentDidUpdate(previousProps, previousState) {
-    await this.drawImageToCanvas(this.props.imageUrl);
-    const url = this.applyFilter();
-
+    const image = await this.imageProcess(this.props.imageUrl);
+    await this.drawImageToCanvas(image);
+    const url = this.applyFilter(image.height, image.width);
     if (previousProps.imageUrl !== this.props.imageUrl) {
-      this.setState({ imageUrl: url });
+      this.setState({
+        height: image.height,
+        width: image.width,
+        imageUrl: url,
+      });
     }
   }
 
-  drawImageToCanvas = async (imageUrl) => {
+  drawImageToCanvas = (image) => {
     const canvas = this.canvasRef;
-    const context = canvas.getContext("2d");
-    const image = await this.imageProcess(imageUrl);
+    canvas.width = image.width;
+    canvas.height = image.height;
 
-    context.drawImage(image, 0, 0, this.canvasRef.width, this.canvasRef.height);
+    const context = canvas.getContext("2d");
+
+    context.clearRect(0, 0, image.width, image.height);
+    context.drawImage(image, 0, 0, image.width, image.height);
+    return image;
   };
 
   imageProcess = (imageUrl) => {
@@ -48,12 +61,12 @@ class ImageCard extends React.Component {
     });
   };
 
-  applyFilter = () => {
+  applyFilter = (height, width) => {
     const { filterType } = this.props;
     const canvas = this.canvasRef;
 
     const context = canvas.getContext("2d");
-    const imgData = context.getImageData(0, 0, 1024, 1024);
+    const imgData = context.getImageData(0, 0, width, height);
     const data = imgData.data;
     const pixelArray = getFilter(data, filterType);
     for (let i = 0; i < data.length; i += 1) {
@@ -66,7 +79,9 @@ class ImageCard extends React.Component {
   };
 
   render() {
-    const imageUrl = this.state.imageUrl;
+    const { imageUrl, height, width } = this.state;
+    console.log(width);
+    console.log(height);
 
     return (
       <div className="imageCard-container">
@@ -75,8 +90,8 @@ class ImageCard extends React.Component {
           <canvas
             className="canvas"
             ref={(canvasRef) => (this.canvasRef = canvasRef)}
-            width={256}
-            height={256}
+            width={width}
+            height={height}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import "./Carousel.css";
 import React from "react";
-import placeHolder from "./res/thinkMoto-slide-1.png";
+import placeHolder from "./res/thinkMoto-slide-3.png";
 import ImageCard from "./ImageCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Virtual, Pagination, EffectCoverflow } from "swiper";
@@ -39,6 +39,7 @@ class Carousel extends React.Component {
     const { imageFile } = this.state;
     return (
       <div className="carousel-container">
+        <div className="background-design"/>
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
@@ -49,7 +50,7 @@ class Carousel extends React.Component {
             stretch: 0,
             depth: 100,
             modifier: 1,
-            slideShadows: true,
+            slideShadows: false,
           }}
           loop
           pagination={true}

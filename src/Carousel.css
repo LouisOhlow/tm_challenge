@@ -25,6 +25,7 @@
 .buttons {
   display: flex;
   justify-content: space-around;
+  margin: 30px;
 }
 
 .canvas {
@@ -32,29 +33,43 @@
   width: 0;
 }
 
-.swiper-container {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 100px;
-  height: 100px;
-  background-color: rgba(0, 0, 0, 0.432);
-}
-
 .swiper-slide img {
-  width: 100%;
-  height: 100%;
+  align-self: center;
+  width: 30vw;
+  height: 50vw;
+  object-fit: contain;
 }
 
 #slider1,
 #slider2,
 #slider3,
 #slider4 {
+  display: flex;
   width: 30vw;
-  height: 30vw;
+  height: 50vw;
+  background-position: center;
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.carousel-container {
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+}
+
+.carousel-image {
+  height: 100%;
+  width: 100%;
+}
+
+.background-design {
+  background-color: rgb(250, 233, 8);
+  position: absolute;
+  z-index: -1;
+  width: 40vw;
+  height: 130vh;
+  right: 0;
+  top: 40vw;
 }
