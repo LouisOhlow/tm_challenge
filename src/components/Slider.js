@@ -45,10 +45,9 @@ function Slider() {
     setCounter(moveCalculation(counter));
     setCounter3(moveCalculation(counter3));
     setCounter2(moveCalculation(counter2));
-  }, 800000000);
+  }, 7000);
   const { width } = getWindowDimensions();
   const isMobile = width < 660;
-  console.log(width);
   const imgSectionWidth = isMobile ? width : 60;
   const txtSectionWidth = isMobile ? width : 60;
 
