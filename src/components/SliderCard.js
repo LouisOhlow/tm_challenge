@@ -4,7 +4,7 @@ function SliderCard({ headline, description }) {
   return (
     <div className="card">
       <div className="textContainer">
-        <div className="projectType">
+        <div className="overline">
           <h4>CASE STUDY</h4>
         </div>
         <div className="headline">

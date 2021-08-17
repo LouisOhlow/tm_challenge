@@ -5,6 +5,11 @@
   font-weight: lighter;
 }
 
+.overline {
+  font-family: "Brandon Grotesque Web Medium";
+  font-size: 0.9rem;
+}
+
 .headline {
   margin-top: 18px;
   margin-bottom: 18px;
@@ -12,18 +17,16 @@
   line-height: 1.12;
 }
 
-.textContainer {
-  text-align: start;
-}
-
-.projectType {
-  font-family: "Brandon Grotesque Web Medium";
-}
-
 .description {
   margin-top: 18px;
   margin-bottom: 18px;
-  font-family: omnes-pro, Verdana, sans-serif;
+  font-family: Verdana, sans-serif;
+  line-height: 1.8;
+  font-weight: 10;
+}
+
+.textContainer {
+  text-align: start;
 }
 
 .card {

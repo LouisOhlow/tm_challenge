@@ -33,20 +33,34 @@ function Slider() {
   const [arrowPos, setArrowPos] = useState(0);
   const [arrowImage, setArrowImage] = useState(arrowLeft);
 
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+
   useInterval(() => {
     setCounter(moveCalculation(counter));
     setCounter3(moveCalculation(counter3));
     setCounter2(moveCalculation(counter2));
   }, 800000000);
-  const screen = Screen;
+  const { width } = getWindowDimensions();
+  const isMobile = width < 660;
+  console.log(width);
+  const imgSectionWidth = isMobile ? width : 60;
+  const txtSectionWidth = isMobile ? width : 60;
 
-  const formula1 = 60 * (2 - counter) - 60;
-  const formula2 = 60 * ((2 - counter2) % 2) - 60;
-  const formula3 = 60 * (2 - ((2 - counter3) % 2)) - 60;
+  const formula1 = imgSectionWidth * (2 - counter) - imgSectionWidth;
+  const formula2 = imgSectionWidth * ((2 - counter2) % 2) - imgSectionWidth;
+  const formula3 =
+    imgSectionWidth * (2 - ((2 - counter3) % 2)) - imgSectionWidth;
 
-  const txtForm1 = 40 * (2 - counter) - 40;
-  const txtForm2 = 40 * ((2 - counter2) % 2) - 40;
-  const txtForm3 = 40 * (2 - ((2 - counter3) % 2)) - 40;
+  const txtForm1 = txtSectionWidth * (2 - counter) - txtSectionWidth;
+  const txtForm2 = txtSectionWidth * ((2 - counter2) % 2) - txtSectionWidth;
+  const txtForm3 =
+    txtSectionWidth * (2 - ((2 - counter3) % 2)) - txtSectionWidth;
 
   const move = useSpring({
     to: [{ left: `${formula1}vw` }],
@@ -86,7 +100,7 @@ function Slider() {
     <div
       className="Slider"
       onMouseMove={(e) => {
-        setMousePos({ x: e.screenX, y: e.screenY });
+        setMousePos({ x: e.screenX, y: e.screenY + window.pageYOffset });
       }}
     >
       <animated.img
@@ -99,21 +113,35 @@ function Slider() {
         onMouseOut={() => setMouseHovers(0)}
       />
       <div className="slider-section">
+        <div
+          className="homeSlider-next"
+          onMouseEnter={() => {
+            setMouseHovers(1);
+            setArrowPos(-70);
+            setArrowImage(arrowRight);
+          }}
+          onMouseOut={() => setMouseHovers(0)}
+          onClick={() => {
+            setCounter(moveCalculation(counter));
+            setCounter3(moveCalculation(counter3));
+            setCounter2(moveCalculation(counter2));
+          }}
+        />
+        <div
+          className="homeSlider-prev"
+          onMouseEnter={() => {
+            setMouseHovers(1);
+            setArrowPos(-10);
+            setArrowImage(arrowLeft);
+          }}
+          onMouseOut={() => setMouseHovers(0)}
+          onClick={() => {
+            setCounter(moveCalculation(counter + 1));
+            setCounter3(moveCalculation(counter3 + 1));
+            setCounter2(moveCalculation(counter2 + 1));
+          }}
+        />
         <div className="slider-imageBox">
-          <div
-            className="homeSlider-prev"
-            onMouseEnter={() => {
-              setMouseHovers(1);
-              setArrowPos(-10);
-              setArrowImage(arrowLeft);
-            }}
-            onMouseOut={() => setMouseHovers(0)}
-            onClick={() => {
-              setCounter(moveCalculation(counter + 1));
-              setCounter3(moveCalculation(counter3 + 1));
-              setCounter2(moveCalculation(counter2 + 1));
-            }}
-          />
           <ul className="imgBox">
             <animated.img
               id="img3"
@@ -136,20 +164,6 @@ function Slider() {
           </ul>
         </div>
         <div className="slider-textBox">
-          <div
-            className="homeSlider-next"
-            onMouseEnter={() => {
-              setMouseHovers(1);
-              setArrowPos(-70);
-              setArrowImage(arrowRight);
-            }}
-            onMouseOut={() => setMouseHovers(0)}
-            onClick={() => {
-              setCounter(moveCalculation(counter));
-              setCounter3(moveCalculation(counter3));
-              setCounter2(moveCalculation(counter2));
-            }}
-          />
           <ul className="txtBox">
             <animated.p style={move5} className="slide-txt">
               <SliderCard
