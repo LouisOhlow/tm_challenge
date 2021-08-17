@@ -1,22 +1,3 @@
-.carousel-container {
-  height: 60vw;
-  width: 100vw;
-  position: absolute;
-  padding: 5%;
-}
-
-.carousel {
-  display: flex;
-  justify-content: space-around;
-}
-
-.carousel-image {
-  margin: 5px;
-  height: 15vw;
-  width: 25vw;
-  object-fit: cover;
-}
-
 .downloadButton {
   border-width: 5px;
   border-radius: 20px;
@@ -46,19 +27,34 @@
   justify-content: space-around;
 }
 
-#canvass {
-  height: 0;
-  width: 0;
-}
-
 .canvas {
   height: 0;
   width: 0;
-  background-color: green;
 }
 
-#canvas {
-  height: 500;
-  width: 500;
-  background-color: green;
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.432);
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+}
+
+#slider1,
+#slider2,
+#slider3,
+#slider4 {
+  width: 30vw;
+  height: 30vw;
 }
